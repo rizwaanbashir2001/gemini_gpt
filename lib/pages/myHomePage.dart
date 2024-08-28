@@ -20,9 +20,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         centerTitle: false,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        elevation: 1,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -30,10 +32,10 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Image.asset('assets/gpt-robot.png'),
                 SizedBox(width: 10,),
-                Text(' Gemini GPT', style: TextStyle(color: Colors.black),)
+                Text(' Gemini GPT', style: Theme.of(context).textTheme.titleLarge)
               ],
             ),
-            SvgPicture.asset('assets/volume-high.svg', color:Colors.blue[800],)
+            SvgPicture.asset('assets/volume-high.svg', colorFilter:ColorFilter.mode(Colors.blueAccent, BlendMode.srcIn) ,)
           ],
         ),
       ),
@@ -50,7 +52,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Container(
                         padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: message.isUser ? Colors.blue:  Colors.grey[300],
+                            color: message.isUser ?
+                            Theme.of(context).colorScheme.primary:
+                            Theme.of(context).colorScheme.secondary,
                             borderRadius:  message.isUser ?
                             BorderRadius.only(
                               topLeft: Radius.circular(20),
@@ -65,7 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           child: Text(
                               message.text,
-                            style: TextStyle(color: message.isUser ? Colors.white : Colors.black)
+                            style:  message.isUser ?
+                            Theme.of(context).textTheme.bodyMedium :
+                            Theme.of(context).textTheme.bodySmall
                           ),
                       ),
                     ),
@@ -96,6 +102,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       controller : _controller,
                       decoration: InputDecoration(
                         hintText: 'Write your message',
+                        hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Colors.grey
+                        ),
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.symmetric(horizontal: 20)
                       ),
